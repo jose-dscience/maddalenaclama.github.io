@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografica del CV di Maddalena Clama</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        /* General timeline container */
+        .timeline-container {
+            position: relative;
+        }
+
+        /* Central line for desktop */
+        @media (min-width: 768px) {
+            .timeline-container::before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: 0;
+                height: 100%;
+                width: 4px; /* Line thickness */
+                background-color: #607D6C; /* Line color */
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Individual timeline item */
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem; /* Space between items */
+            padding-left: 2.5rem; /* Space for mobile line/dot */
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Mobile dot and line */
+        .timeline-item::before { /* Vertical line for mobile */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10px; /* Position of the line */
+            height: 100%;
+            width: 4px;
+            background-color: #607D6C;
+            z-index: 0;
+        }
+        .timeline-item .timeline-dot { /* Dot for mobile */
+            position: absolute;
+            left: 0; /* Position of the dot */
+            top: 1.5rem; /* Align with card top */
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            border: 4px solid #607D6C;
+            z-index: 10;
+        }
+
+        /* Desktop specific styles */
+        @media (min-width: 768px) {
+            .timeline-item {
+                display: flex;
+                align-items: center; /* Vertically center dot */
+                padding-left: 0; /* Remove mobile padding */
+                width: 100%; /* Take full width of parent container */
+                position: relative; /* Needed for absolute positioning of dot and ::after */
+            }
+
+            .timeline-item::before { /* Hide mobile line */
+                display: none;
+            }
+
+            .timeline-item .timeline-dot { /* Reposition dot for desktop */
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .timeline-item .timeline-card {
+                width: calc(50% - 100px); /* Half width minus space for dot/gap */
+                position: relative; /* For z-index */
+                z-index: 5;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-card {
+                margin-left: auto; /* Push to right */
+                margin-right: 90px; /* Increased gap from center line */
+                text-align: right;
+            }
+            .timeline-item:nth-child(even) .timeline-card {
+                margin-right: auto; /* Push to left */
+                margin-left: 90px; /* Increased gap from center line */
+                text-align: left;
+            }
+
+            /* Horizontal lines (branches) for desktop - REMOVED */
+        }
+    </style>
+</head>
+<body class="bg-[#E0E8D7] text-[#3F544D]">
+    <!-- Chosen palette: Sage Greens with Salmon Accent -->
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <!-- Image container for controlled zoom -->
+            <div class="relative w-48 h-48 rounded-full mx-auto mb-6 border-4 border-white shadow-md overflow-hidden">
+                <img src="https://i.imgur.com/Kh0ic55.jpeg" alt="Foto de profilo di Maddalena Clama" class="absolute inset-0 w-full h-full object-cover" style="transform: scale(1.3) translateY(7%) translateX(-4%);">
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black uppercase text-shadow text-[#FA8072]">Maddalena Clama</h1>
+            <p class="text-2xl md:text-3xl font-bold text-[#607D6C] mt-2">Farmacista</p>
+            <div class="mt-4 flex justify-center items-center space-x-6 text-[#3F544D]">
+                <span>📍 Spilimbergo (PN)</span>
+                <span>📧 maddalena.clama@libero.it</span>
+                <span>📞 +39 3332710087</span>
+            </div>
+        </header>
+
+        <main class="space-y-12">
+            
+            <section id="about" class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 md:p-8 ring-1 ring-black ring-opacity-5">
+                <h2 class="text-3xl font-bold text-[#607D6C] mb-4 text-center">Filosofia Professionale</h2>
+                <p class="text-lg text-center max-w-3xl mx-auto text-[#3F544D]">
+                    "Lavorando a stretto contatto con il pubblico ho imparato a capire le esigenze di chi ho di fronte gestendo la vendita in modo ottimale sia per el cliente che per l'azienda. Ho capito che solo con una squadra de lavoro coesa si ottengo i risultati desiderati e per este motivo penso que più che competere si debba collaborare per un fine comune."
+                </p>
+            </section>
+
+            <section id="experience">
+                 <h2 class="text-4xl font-black text-shadow text-[#FA8072] text-center mb-8">Esperienze Lavorative</h2>
+                <div class="relative max-w-4xl mx-auto py-8 timeline-container">
+                    <!-- Timeline Items Wrapper -->
+                    <div class="flex flex-col items-start md:items-stretch">
+
+                        <!-- Updated Placeholder Job (now first) -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-card bg-white rounded-lg shadow-md p-4 w-full">
+                                <h3 class="font-bold text-lg text-[#607D6C]">FARMACISTA III LIVELLO</h3>
+                                <p class="text-sm">Farmacia della Torre</p>
+                                <time class="text-xs text-gray-500">Set. 2023 - Giu. 2025</time>
+                            </div>
+                        </div>
+
+                        <!-- Job 1 (Right on desktop, Left on mobile) -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-card bg-white rounded-lg shadow-md p-4 w-full">
+                                <h3 class="font-bold text-lg text-[#607D6C]">FARMACISTA I LIVELLO</h3>
+                                <p class="text-sm">Farmacia San Giacomo</p>
+                                <time class="text-xs text-gray-500">Ott. 2020 - Lug. 2023</time>
+                            </div>
+                        </div>
+
+                        <!-- Job 2 (Left on desktop, Left on mobile) -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-card bg-white rounded-lg shadow-md p-4 w-full">
+                                <h3 class="font-bold text-lg text-[#607D6C]">FARMACISTA I LIVELLO</h3>
+                                <p class="text-sm">Farmacia Mareschi & C.</p>
+                                <time class="text-xs text-gray-500">Mag. 2020 - Lug. 2020</time>
+                            </div>
+                        </div>
+
+                        <!-- Job 3 (Right on desktop, Left on mobile) -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-card bg-white rounded-lg shadow-md p-4 w-full">
+                                <h3 class="font-bold text-lg text-[#607D6C]">FARMACISTA III LIVELLO</h3>
+                                <p class="text-sm">È Qui S.p.A.</p>
+                                <time class="text-xs text-gray-500">Ago. 2019 - Nov. 2019</time>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills">
+                <h2 class="text-4xl font-black text-shadow text-[#FA8072] text-center mb-8">Competenze Chiave</h2>
+                <p class="text-center text-sm mb-4 text-[#3F544D]">Una visione integrale delle capacità tecniche e commerciali nell'ambiente farmaceutico.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <div class="bg-white rounded-xl shadow-lg p-6 ring-1 ring-black ring-opacity-5">
+                        <h3 class="text-2xl font-bold text-center text-[#607D6C] mb-4">Abilità Farmaceutiche</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center">
+                            <div class="bg-gray-50 p-4 rounded-lg shadow flex flex-col items-center justify-center">
+                                <span class="text-4xl mb-2">💊</span>
+                                <p class="font-semibold text-lg text-[#3F544D]">Dispensazione di Medicinali</p>
+                                <p class="text-xs text-gray-500">Dispensazione di farmaci, SOP, OTC, parafarmaci e dispositivi medici.</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg shadow flex flex-col items-center justify-center">
+                                <span class="text-4xl mb-2">💄</span>
+                                <p class="font-semibold text-lg text-[#3F544D]">Vendita di Cosmetici</p>
+                                <p class="text-xs text-gray-500">Consulenza e vendita di prodotti di bellezza e cura della pelle.</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg shadow flex flex-col items-center justify-center">
+                                <span class="text-4xl mb-2">📈</span>
+                                <p class="font-semibold text-lg text-[#3F544D]">Abilità Commerciali</p>
+                                <p class="text-xs text-gray-500">Abilità commerciali: cross selling e up selling.</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg shadow flex flex-col items-center justify-center">
+                                <span class="text-4xl mb-2">📦</span>
+                                <p class="font-semibold text-lg text-[#3F544D]">Gestione del Magazzino</p>
+                                <p class="text-xs text-gray-500">Controllo inventario, organizzazione stock e scadenze.</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg shadow flex flex-col items-center justify-center">
+                                <span class="text-4xl mb-2">🗓️</span>
+                                <p class="font-semibold text-lg text-[#3F544D]">Organizzazione Eventi</p>
+                                <p class="text-xs text-gray-500">Organizzazione eventi cosmetica, pubblicità e presentazione del prodotto.</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg shadow flex flex-col items-center justify-center">
+                                <span class="text-4xl mb-2">🗣️</span>
+                                <p class="font-semibold text-lg text-[#3F544D]">Consulenza al Paziente</p>
+                                <p class="text-xs text-gray-500">Ascolto e supporto paziente con attenzione alle sue esigenze.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-6 ring-1 ring-black ring-opacity-5">
+                        <h3 class="text-2xl font-bold text-center text-[#607D6C] mb-4">Dominio del Software</h3>
+                        <p class="text-center text-sm mb-4 text-[#3F544D]">Competenza negli strumenti software essenziali per la gestione e l'operatività farmaceutica e d'ufficio.</p>
+                        <div class="chart-container">
+                            <canvas id="softwareSkillsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-6 ring-1 ring-black ring-opacity-5 lg:col-span-2">
+                        <h3 class="text-2xl font-bold text-center text-[#607D6C] mb-4">Competenze Linguistiche</h3>
+                        <div class="chart-container max-w-xs">
+                            <canvas id="languageSkillsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="education">
+                <h2 class="text-4xl font-black text-shadow text-[#FA8072] text-center mb-8">Formazione Accademica</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center ring-1 ring-black ring-opacity-5">
+                        <p class="text-2xl font-bold text-[#607D6C]">🎓</p>
+                        <h3 class="text-xl font-bold mt-2 text-[#607D6C]">Laurea Magistrale a Ciclo Unico in Chimica e Tecnologia Farmaceutiche</h3>
+                        <p class="text-[#3F544D]">Università degli studi di Trieste</p>
+                        <p class="text-sm text-gray-500 mt-1">2012 - 2018</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center ring-1 ring-black ring-opacity-5">
+                         <p class="text-2xl font-bold text-[#607D6C]">📜</p>
+                        <h3 class="text-xl font-bold mt-2 text-[#607D6C]">Diploma di Istruzione Secondaria Superiore: Liceo Scientifico</h3>
+                        <p class="text-[#3F544D]">Liceo Scientifico Statale L. Magrini</p>
+                        <p class="text-sm text-gray-500 mt-1">2007 - 2012</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <footer class="text-center mt-12 py-6 border-t border-white/50">
+            <p class="text-white text-sm">Infografica generata il 30 giugno 2025.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Define mixedPalette globally or within the DOMContentLoaded listener
+        const mixedPalette = {
+            background: '#E0E8D7', // Light Sage
+            textPrimary: '#3F544D', // Dark Sage
+            accentSage: '#889C7A', // Medium Sage (Greenish) - not used for software skills
+            accentSageLight: '#A8B594', // Light Sage - not used for software skills
+            salmon: '#FA8072', // Salmon (Orange-ish)
+            salmonLight: '#FFB699', // Lighter Salmon
+            salmonVeryLight: '#FFDDC2' // Even lighter salmon for the gradient
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                }
+                return label;
+            };
+            
+            const processLabels = (labels) => {
+                const maxLen = 16;
+                return labels.map(label => {
+                    if (label.length <= maxLen) return label;
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    words.forEach(word => {
+                        if ((currentLine + ' ' + word).length > maxLen && currentLine.length > 0) {
+                            lines.push(currentLine);
+                            currentLine = word;
+                        } else {
+                            currentLine = (currentLine + ' ' + word).trim();
+                        }
+                    });
+                    lines.push(currentLine);
+                    return lines;
+                });
+            };
+            
+            const chartOptionsBase = {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: mixedPalette.textPrimary,
+                            font: { size: 14 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            };
+
+            new Chart(document.getElementById('softwareSkillsChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Wingesfar', 'Facile', 'Word', 'Excel', 'Access'], // Reordered labels
+                    datasets: [{
+                        label: 'Livello di Competenza',
+                        data: [5, 5, 4, 3.5, 3], // Reordered data
+                        backgroundColor: [
+                            mixedPalette.salmon,          // Wingesfar (5 - most orange)
+                            mixedPalette.salmon,          // Facile (5 - most orange)
+                            mixedPalette.salmonLight,     // Word (4 - mid-orange)
+                            mixedPalette.salmonVeryLight, // Excel (3.5 - lighter orange)
+                            mixedPalette.salmonVeryLight  // Access (3 - lightest orange)
+                        ],
+                        borderColor: mixedPalette.textPrimary,
+                        borderWidth: 1
+                    }]
+                },
+                options: { ...chartOptionsBase,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 5,
+                            grid: {
+                               color: 'rgba(63, 84, 77, 0.1)' /* Using dark sage with opacity */
+                            },
+                            ticks: { color: mixedPalette.textPrimary }
+                        },
+                        y: {
+                            grid: {
+                               display: false
+                            },
+                            ticks: { color: mixedPalette.textPrimary }
+                        }
+                    }
+                }
+            });
+            
+            new Chart(document.getElementById('languageSkillsChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['🇮🇹 Italiano (Nativo)', '🇪🇸 Spagnolo (Alto)', '🇬🇧 Inglese (Intermedio)'],
+                    datasets: [{
+                        label: 'Lingue',
+                        data: [100, 90, 60], // Adjusted data for Spanish to 90
+                        backgroundColor: [
+                            mixedPalette.salmon,          // Italiano (Nativo - 100 - most orange)
+                            mixedPalette.salmonLight,     // Spagnolo (Alto - 90 - mid-orange)
+                            mixedPalette.accentSage       // Inglese (Intermedio - 60 - more green)
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: { ...chartOptionsBase,
+                     plugins: { ...chartOptionsBase.plugins,
+                        legend: { 
+                            position: 'bottom',
+                            labels: {
+                                color: mixedPalette.textPrimary,
+                                font: { size: 14 }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
